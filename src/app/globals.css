@@ -3,15 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --background: #0A0A0B;
-  --surface: #141416;
-  --surface-elevated: #1C1C1F;
+  --background: #030305;
+  --surface: #0C0C0F;
+  --surface-elevated: #141418;
+  --surface-hover: #1A1A1F;
   --border: #27272A;
-  --primary: #8B5CF6;
+  --border-light: #3A3A40;
+  --primary: #A78BFA;
+  --primary-light: #C4B5FD;
+  --primary-dark: #7C3AED;
   --secondary: #6366F1;
-  --accent: #FB923C;
+  --secondary-light: #818CF8;
+  --accent: #F97316;
+  --accent-light: #FB923C;
+  --glow: #8B5CF6;
+  --glow-secondary: #6366F1;
   --text-primary: #FAFAFA;
   --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
 }
 
 @layer base {
@@ -42,13 +54,35 @@
       radial-gradient(at 0% 100%, hsla(280, 80%, 30%, 0.3) 0px, transparent 50%);
   }
   
-  .glass {
-    @apply bg-surface/60 backdrop-blur-xl border border-border/50;
-  }
-  
-  .glass-hover {
-    @apply bg-surface-elevated/80 backdrop-blur-lg border border-border transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10;
-  }
+.glass {
+  @apply bg-surface/70 backdrop-blur-xl border border-border/60;
+}
+
+.glass-hover {
+  @apply bg-surface-elevated/80 backdrop-blur-lg border border-border transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-glow/20;
+}
+
+.glass-premium {
+  @apply bg-surface/80 backdrop-blur-2xl border border-border/80;
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.8), rgba(99, 102, 241, 0.8), rgba(249, 115, 22, 0.8));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
   
   .glow {
     box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.3);

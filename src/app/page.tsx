@@ -222,24 +222,29 @@ function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 bg-gradient-aurora opacity-60" />
-      <div className="absolute inset-0 noise-overlay" />
-
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-[#030305]" />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOCIgbnVtT2N0YXZlc9iNCIgc3RpdGNoVW5pdHM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=')] opacity-[0.03]" />
+      
+      {/* Animated gradient orbs */}
       <motion.div
-        animate={{ y: [0, -20, 0] }}
+        animate={{ y: [0, -30, 0], x: [0, 20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary/20 blur-[100px]"
+        className="absolute top-[10%] left-[10%] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/10 blur-[120px]"
       />
       <motion.div
-        animate={{ y: [0, 30, 0] }}
+        animate={{ y: [0, 40, 0], x: [0, -30, 0] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-secondary/20 blur-[100px]"
+        className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full bg-gradient-to-tl from-secondary/25 via-primary/15 to-accent/5 blur-[100px]"
       />
       <motion.div
-        animate={{ y: [0, -15, 0] }}
+        animate={{ y: [0, -20, 0], x: [0, 15, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 right-1/3 w-60 h-60 rounded-full bg-accent/10 blur-[80px]"
+        className="absolute top-[50%] right-[30%] w-[300px] h-[300px] rounded-full bg-gradient-to-r from-accent/20 via-primary/15 to-secondary/10 blur-[80px]"
       />
+      
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(167,139,250,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(167,139,250,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-50" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
         <motion.div
@@ -251,7 +256,7 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-premium mb-6 border border-primary/20"
           >
             <Sparkles className="w-4 h-4 text-accent" />
             <span className="text-sm text-text-secondary">
@@ -266,7 +271,9 @@ function Hero() {
             className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6"
           >
             Write Boldly. <br />
-            <span className="text-gradient">Apply Globally.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent bg-[length:200%_200%] animate-gradient">
+              Apply Globally.
+            </span>
           </motion.h1>
 
           <motion.p
@@ -289,7 +296,7 @@ function Hero() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => document.getElementById("demo-input")?.scrollIntoView({ behavior: "smooth" })}
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-lg flex items-center justify-center gap-2 glow hover:shadow-xl hover:shadow-primary/30 transition-all"
+              className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] hover:bg-[length:100%_100%] text-white font-semibold text-lg flex items-center justify-center gap-2 shadow-glow hover:shadow-glow-lg transition-all animate-pulse-slow"
             >
               Try It Free
               <ArrowRight className="w-5 h-5" />
@@ -333,20 +340,22 @@ function Hero() {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 blur-[60px] rounded-3xl" />
 
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative glass rounded-2xl p-6 md:p-8 glow"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-              <span className="ml-auto text-sm text-text-secondary">
-                Live Preview
-              </span>
-            </div>
+<motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="relative glass-premium rounded-2xl p-6 md:p-8 shadow-glow border border-primary/20"
+        >
+          {/* Window controls */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-3 h-3 rounded-full bg-red-500/80" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+            <div className="w-3 h-3 rounded-full bg-green-500/80" />
+            <div className="flex-1" />
+            <span className="text-xs font-medium text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+              Live Preview
+            </span>
+          </div>
 
             <div className="space-y-4">
               <motion.div
@@ -389,7 +398,7 @@ function Hero() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: generated ? 1 : 0, scale: generated ? 1 : 0.95 }}
-                className="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl p-4 border border-primary/30"
+                className="bg-gradient-to-br from-primary/20 via-primary/10 to-secondary/20 rounded-xl p-4 border border-primary/30 shadow-inner-glow"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-primary font-medium">
