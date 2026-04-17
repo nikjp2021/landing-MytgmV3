@@ -26,3 +26,9 @@ next-env.d.ts
 # OS
 .DS_Store
 Thumbs.db
+
+# Temp files
+*.js
+*.ps1
+gh/
+*.zip

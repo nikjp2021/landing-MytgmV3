@@ -1,0 +1,2 @@
+$env:GH_TOKEN = "ghp_MEUrT6YGhU6gZ6hZhHqZqZ6hZhHqZqZ6hZh"
+& "C:\Program Files\GitHub CLI\gh.exe" repo create Mytegami-ver3.0 --public --source=. --push --description "Premium MyTegami landing page with high-end UI/UX"
