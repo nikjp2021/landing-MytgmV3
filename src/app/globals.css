@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0A0A0B;
+  --surface: #141416;
+  --surface-elevated: #1C1C1F;
+  --border: #27272A;
+  --primary: #8B5CF6;
+  --secondary: #6366F1;
+  --accent: #FB923C;
+  --text-primary: #FAFAFA;
+  --text-secondary: #A1A1AA;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-text-primary;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
+  }
+  
+  .bg-gradient-aurora {
+    background: 
+      radial-gradient(at 40% 20%, hsla(240, 80%, 30%, 0.4) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(260, 80%, 30%, 0.3) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(220, 80%, 25%, 0.3) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsla(200, 80%, 25%, 0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(280, 80%, 30%, 0.3) 0px, transparent 50%);
+  }
+  
+  .glass {
+    @apply bg-surface/60 backdrop-blur-xl border border-border/50;
+  }
+  
+  .glass-hover {
+    @apply bg-surface-elevated/80 backdrop-blur-lg border border-border transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10;
+  }
+  
+  .glow {
+    box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.3);
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 40px -10px rgba(251, 146, 60, 0.3);
+  }
+}
+
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.02;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
