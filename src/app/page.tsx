@@ -703,27 +703,27 @@ function HowItWorks() {
       title: "Tell us your story",
       description: "Enter just 2 phrases: your goal + what makes you unique. That's it.",
       icon: FileText,
-      gradient: "from-primary via-purple-400 to-primary",
-      glowColor: "rgba(167, 139, 250, 0.3)",
-      stepColor: "from-blue-500 to-cyan-500",
+      stepColor: "blue",
+      iconBg: "from-blue-500 to-cyan-400",
+      numberColor: "text-blue-400",
     },
     {
       number: "02",
       title: "AI crafts your letter",
       description: "Our AI writes a personalized, culturally-aware cover letter in seconds.",
       icon: Sparkles,
-      gradient: "from-accent via-orange-400 to-accent",
-      glowColor: "rgba(249, 115, 22, 0.3)",
-      stepColor: "from-orange-500 to-amber-500",
+      stepColor: "orange",
+      iconBg: "from-orange-500 to-amber-400",
+      numberColor: "text-orange-400",
     },
     {
       number: "03",
       title: "Download & Apply",
       description: "Get your letter in PDF, DOCX, or simply copy. Ready to submit.",
       icon: Download,
-      gradient: "from-green-500 via-emerald-400 to-green-500",
-      glowColor: "rgba(16, 185, 129, 0.3)",
-      stepColor: "from-green-500 to-emerald-500",
+      stepColor: "green",
+      iconBg: "from-green-500 to-emerald-400",
+      numberColor: "text-green-400",
     },
   ];
 
@@ -731,8 +731,8 @@ function HowItWorks() {
     <section id="how-it-works" className="py-24 relative">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[80px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px]" />
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[80px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-green-500/10 rounded-full blur-[80px]" />
       </div>
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -749,7 +749,7 @@ function HowItWorks() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-6">
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
@@ -759,31 +759,37 @@ function HowItWorks() {
               viewport={{ once: true }}
               className="relative group"
             >
-              {/* Connecting line */}
+              {/* Connecting line with arrow */}
               {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-1/2 -right-2 z-10">
-                  <ChevronRight className="w-8 h-8 text-primary/50" />
+                <div className="hidden md:block absolute top-1/2 -right-6 z-10">
+                  <div className="w-12 h-12 rounded-full bg-surface flex items-center justify-center">
+                    <ChevronRight className="w-6 h-6 text-white/30" />
+                  </div>
                 </div>
               )}
               
-              <div className="relative h-full rounded-2xl p-[1px] bg-gradient-to-br from-white/10 to-white/5">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="h-full glass-premium rounded-2xl p-8 text-center h-full relative overflow-hidden group-hover:shadow-glow transition-all duration-500">
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle at 50% 0%, ${step.glowColor}, transparent 60%)` }} />
-                  
-                  <div className="relative">
-                    <div className="text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-br from-white/20 to-white/5 mb-4">
+              {/* MAIN CARD - Bright and prominent */}
+              <div className={`relative h-full rounded-2xl p-[2px] bg-gradient-to-br from-${step.stepColor}-500 via-${step.stepColor}-400 to-${step.stepColor}-600`}>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-black/20" />
+                <div className="absolute -inset-0.5 rounded-2xl bg-${step.stepColor}-500/30 blur-sm" />
+                
+                <div className="relative h-full bg-[#0C0C0F] rounded-2xl p-8 text-center">
+                  {/* Glowing step number */}
+                  <div className="relative mb-6">
+                    <div className={`text-8xl font-display font-bold ${step.numberColor} drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]`}>
                       {step.number}
                     </div>
-                    <div className="relative w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 shadow-glow">
-                      <step.icon className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="relative text-2xl font-display font-bold mb-3 text-white">
-                      {step.title}
-                    </h3>
-                    <p className="relative text-text-secondary">{step.description}</p>
                   </div>
+                  
+                  {/* Icon with glow */}
+                  <div className={`relative w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${step.iconBg} flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-110 transition-all duration-300`}>
+                    <step.icon className="w-10 h-10 text-white" />
+                  </div>
+                  
+                  <h3 className="relative text-2xl font-display font-bold mb-3 text-white">
+                    {step.title}
+                  </h3>
+                  <p className="relative text-text-secondary">{step.description}</p>
                 </div>
               </div>
             </motion.div>
