@@ -525,7 +525,8 @@ function Features() {
       title: "Any Language",
       description:
         "Write in your target language - Japanese, German, Spanish... AI crafts it like a local writer with cultural nuances.",
-      gradient: "from-blue-500 to-cyan-500",
+      gradient: "from-primary via-secondary to-primary",
+      glowColor: "rgba(167, 139, 250, 0.3)",
       colSpan: "md:col-span-1",
     },
     {
@@ -533,7 +534,8 @@ function Features() {
       title: "In 60 Seconds",
       description:
         "No more hours of staring at a blank page. Just 2 phrases and you're ready to apply to your dream job.",
-      gradient: "from-purple-500 to-pink-500",
+      gradient: "from-accent via-orange-400 to-accent",
+      glowColor: "rgba(249, 115, 22, 0.3)",
       colSpan: "md:col-span-1",
     },
     {
@@ -541,21 +543,27 @@ function Features() {
       title: "Human-Written",
       description:
         "Passes every AI detector. Your letter reads authentically human, crafted to sound natural and confident.",
-      gradient: "from-green-500 to-emerald-500",
+      gradient: "from-green-500 via-emerald-400 to-green-500",
+      glowColor: "rgba(16, 185, 129, 0.3)",
       colSpan: "md:col-span-2",
     },
   ];
 
   return (
     <section id="features" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Background glow */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px]" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Break barriers. <span className="text-gradient">Not nerves.</span>
+            Break barriers. <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent bg-[length:200%_200%] animate-gradient">Not nerves.</span>
           </h2>
           <p className="text-xl text-text-secondary max-w-2xl mx-auto">
             Everything you need to write cover letters that get responses.
@@ -569,20 +577,26 @@ function Features() {
               key={feature.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
               className={`${feature.colSpan} group`}
             >
-              <div className="h-full glass-hover rounded-2xl p-6 md:p-8 cursor-pointer hover-glow">
-                <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
-                >
-                  <feature.icon className="w-7 h-7 text-white" />
+              <div className="relative h-full rounded-2xl p-[1px] bg-gradient-to-br from-white/10 to-white/5">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="h-full glass-premium rounded-2xl p-6 md:p-8 cursor-pointer relative overflow-hidden group-hover:shadow-glow-lg transition-all duration-500">
+                  {/* Animated gradient background on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle at 30% 30%, ${feature.glowColor}, transparent 70%)` }} />
+                  
+                  <div
+                    className={`relative w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}
+                  >
+                    <feature.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="relative text-2xl font-display font-bold mb-3 text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="relative text-text-secondary">{feature.description}</p>
                 </div>
-                <h3 className="text-2xl font-display font-bold mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-text-secondary">{feature.description}</p>
               </div>
             </motion.div>
           ))}
@@ -598,38 +612,48 @@ function Services() {
       icon: FileText,
       title: "Cover Letters",
       description: "AI-crafted personalized cover letters in any language that sound authentically human.",
-      gradient: "from-primary to-secondary",
+      gradient: "from-primary via-secondary to-primary",
+      glow: "rgba(167, 139, 250, 0.3)",
     },
     {
       icon: MessageSquare,
       title: "LinkedIn Messages",
       description: "Personalized connection requests that get accepted. Network with confidence.",
-      gradient: "from-blue-500 to-cyan-500",
+      gradient: "from-blue-500 via-cyan-400 to-blue-500",
+      glow: "rgba(6, 182, 212, 0.3)",
     },
     {
       icon: User,
       title: "Personal Bios",
       description: "Compelling bios for LinkedIn, websites, and speaking engagements.",
-      gradient: "from-purple-500 to-pink-500",
+      gradient: "from-purple-500 via-pink-400 to-purple-500",
+      glow: "rgba(168, 85, 247, 0.3)",
     },
     {
       icon: DollarSign,
       title: "Sales Emails",
       description: "Personalized outreach snippets that convert leads into customers.",
-      gradient: "from-green-500 to-emerald-500",
+      gradient: "from-green-500 via-emerald-400 to-green-500",
+      glow: "rgba(16, 185, 129, 0.3)",
     },
   ];
 
   return (
     <section id="services" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Background effect */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Professional <span className="text-gradient">Communication Tools</span>
+            Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent bg-[length:200%_200%] animate-gradient">Communication Tools</span>
           </h2>
           <p className="text-xl text-text-secondary max-w-2xl mx-auto">
             Everything you need to communicate confidently in your professional journey.
@@ -642,20 +666,26 @@ function Services() {
               key={service.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
               className="group"
             >
-              <div className="h-full glass-hover rounded-2xl p-8 cursor-pointer hover-glow">
-                <div
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
-                >
-                  <service.icon className="w-8 h-8 text-white" />
+              <div className="relative h-full rounded-2xl p-[1px] bg-gradient-to-br from-white/10 to-white/5">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="h-full glass-premium rounded-2xl p-8 cursor-pointer relative overflow-hidden group-hover:shadow-glow-lg transition-all duration-500">
+                  {/* Hover glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle at 80% 80%, ${service.glow}, transparent 60%)` }} />
+                  
+                  <div
+                    className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}
+                  >
+                    <service.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="relative text-2xl font-display font-bold mb-3 text-white">
+                    {service.title}
+                  </h3>
+                  <p className="relative text-text-secondary">{service.description}</p>
                 </div>
-                <h3 className="text-2xl font-display font-bold mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-text-secondary">{service.description}</p>
               </div>
             </motion.div>
           ))}
@@ -872,6 +902,8 @@ function Pricing() {
       ],
       cta: "Start Free",
       popular: false,
+      gradient: "from-zinc-700 to-zinc-800",
+      borderColor: "border-white/10",
     },
     {
       name: "Pro",
@@ -888,6 +920,9 @@ function Pricing() {
       ],
       cta: "Get Pro",
       popular: true,
+      gradient: "from-primary via-secondary to-accent",
+      borderColor: "border-primary/50",
+      glowBg: "rgba(167, 139, 250, 0.1)",
     },
     {
       name: "Enterprise",
@@ -903,80 +938,87 @@ function Pricing() {
       ],
       cta: "Contact Sales",
       popular: false,
+      gradient: "from-zinc-700 to-zinc-800",
+      borderColor: "border-white/10",
     },
   ];
 
   return (
     <section id="pricing" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Background glow */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px]" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Simple, <span className="text-gradient">transparent</span> pricing
+            Simple, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent bg-[length:200%_200%] animate-gradient">transparent</span> pricing
           </h2>
           <p className="text-xl text-text-secondary">
             Start free. Upgrade when you're ready.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
-              className={`relative ${
-                plan.popular ? "md:-mt-4 md:mb-4" : ""
-              }`}
+              className={`relative ${plan.popular ? "md:-mt-4 md:mb-4" : ""}`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary to-secondary rounded-full text-sm font-medium text-white">
-                  Most Popular
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1.5 bg-gradient-to-r from-primary via-secondary to-accent rounded-full text-sm font-semibold text-white shadow-glow animate-pulse-slow">
+                  ★ Most Popular
                 </div>
               )}
-              <div
-                className={`h-full glass-hover rounded-2xl p-8 ${
-                  plan.popular ? "border-primary/50 glow" : ""
-                }`}
+              <div 
+                className={`relative h-full rounded-2xl p-[1px] ${plan.borderColor} bg-gradient-to-br ${plan.popular ? 'from-primary/30 to-accent/20' : 'from-white/10 to-white/5'}`}
+                style={plan.popular ? { background: `linear-gradient(135deg, ${plan.glowBg}, transparent 60%)` } : {}}
               >
-                <h3 className="text-2xl font-display font-bold mb-2">
-                  {plan.name}
-                </h3>
-                <div className="flex items-baseline gap-1 mb-2">
-                  <span className="text-4xl font-display font-bold text-gradient">
-                    {plan.price}
-                  </span>
-                  {plan.period && (
-                    <span className="text-text-secondary">{plan.period}</span>
-                  )}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className={`h-full glass-premium rounded-2xl p-8 ${plan.popular ? 'shadow-glow-lg' : ''}`}>
+                  <h3 className="text-2xl font-display font-bold mb-2">
+                    {plan.name}
+                  </h3>
+                  <div className="flex items-baseline gap-1 mb-2">
+                    <span className={`text-5xl font-display font-bold ${plan.popular ? 'text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent' : 'text-white'}`}>
+                      {plan.price}
+                    </span>
+                    {plan.period && (
+                      <span className="text-text-secondary">{plan.period}</span>
+                    )}
+                  </div>
+                  <p className="text-text-secondary mb-6">{plan.description}</p>
+
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-3">
+                        <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
+                        <span className="text-text-secondary text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full py-4 rounded-xl font-semibold transition-all ${
+                      plan.popular
+                        ? "bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] hover:bg-[length:100%_100%] text-white shadow-glow hover:shadow-glow-lg"
+                        : "bg-gradient-to-r from-zinc-700 to-zinc-800 text-white hover:from-zinc-600 hover:to-zinc-700"
+                    }`}
+                  >
+                    {plan.cta}
+                  </motion.button>
                 </div>
-                <p className="text-text-secondary mb-6">{plan.description}</p>
-
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-green-400" />
-                      <span className="text-text-secondary">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-xl font-semibold transition-all ${
-                    plan.popular
-                      ? "bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:shadow-primary/30"
-                      : "bg-surface-elevated text-text-primary hover:bg-border"
-                  }`}
-                >
-                  {plan.cta}
-                </motion.button>
               </div>
             </motion.div>
           ))}
