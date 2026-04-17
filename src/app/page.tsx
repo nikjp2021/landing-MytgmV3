@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import {
   Globe,
   Clock,
@@ -21,11 +21,28 @@ import {
   Users,
   Zap,
   Target,
+  Menu,
+  X,
+  Send,
+  ExternalLink,
+  Phone,
+  BookOpen,
+  Code,
+  BarChart3,
+  Building,
+  Briefcase,
+  User,
+  MessageSquare,
+  FileEdit,
+  DollarSign,
+  Heart,
+  ArrowUpRight,
 } from "lucide-react";
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -33,12 +50,26 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { href: "#features", label: "Features" },
+    { href: "#services", label: "Services" },
+    { href: "#pricing", label: "Pricing" },
+    { href: "#testimonials", label: "Testimonials" },
+  ];
+
+  const servicesMenu = [
+    { href: "#services", label: "Cover Letters", icon: FileText },
+    { href: "#services", label: "LinkedIn Messages", icon: MessageSquare },
+    { href: "#services", label: "Personal Bios", icon: User },
+    { href: "#services", label: "Sales Emails", icon: DollarSign },
+  ];
+
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass py-4" : "bg-transparent py-6"
+        scrolled ? "glass py-3" : "bg-transparent py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -47,43 +78,65 @@ function Navbar() {
           className="flex items-center gap-2 text-xl font-display font-bold"
           whileHover={{ scale: 1.02 }}
         >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-            <Globe className="w-4 h-4 text-white" />
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+            <Globe className="w-5 h-5 text-white" />
           </div>
-          <span className="text-gradient">MyTegami</span>
+          <span className="text-gradient hidden sm:block">MyTegami</span>
         </motion.a>
 
-        <div className="hidden md:flex items-center gap-8">
-          <a
-            href="#how-it-works"
-            className="text-text-secondary hover:text-text-primary transition-colors"
-          >
-            How it Works
-          </a>
-          <a
-            href="#features"
-            className="text-text-secondary hover:text-text-primary transition-colors"
-          >
-            Features
-          </a>
-          <a
-            href="#pricing"
-            className="text-text-secondary hover:text-text-primary transition-colors"
-          >
-            Pricing
-          </a>
+        <div className="hidden md:flex items-center gap-6">
+          <div className="relative">
+            <button
+              onClick={() => setServicesOpen(!servicesOpen)}
+              className="text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1"
+            >
+              Services
+              <ChevronRight className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-90" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {servicesOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute top-full left-0 mt-2 w-48 glass rounded-xl py-2"
+                >
+                  {servicesMenu.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setServicesOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2 text-text-secondary hover:text-text-primary hover:bg-surface-elevated transition-colors"
+                    >
+                      <item.icon className="w-4 h-4" />
+                      {item.label}
+                    </a>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-text-secondary hover:text-text-primary transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
 
         <div className="hidden md:flex items-center gap-4">
           <a
             href="#"
-            className="text-text-secondary hover:text-text-primary transition-colors"
+            className="text-text-secondary hover:text-text-primary transition-colors text-sm"
           >
             Log in
           </a>
           <motion.a
-            href="#"
-            className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium hover:shadow-lg hover:shadow-primary/25 transition-all"
+            href="#cta"
+            className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium hover:shadow-lg hover:shadow-primary/25 transition-all text-sm"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -92,40 +145,86 @@ function Navbar() {
         </div>
 
         <button
-          className="md:hidden text-text-primary"
+          className="md:hidden text-text-primary p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          <div className="space-y-1.5">
-            <span
-              className={`block w-6 h-0.5 bg-current transition-transform ${
-                mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></span>
-            <span
-              className={`block w-6 h-0.5 bg-current transition-opacity ${
-                mobileMenuOpen ? "opacity-0" : ""
-              }`}
-            ></span>
-            <span
-              className={`block w-6 h-0.5 bg-current transition-transform ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></span>
-          </div>
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl z-40 md:hidden"
+          >
+            <div className="p-6 space-y-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-3 text-lg text-text-secondary hover:text-text-primary border-b border-border"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="pt-4 space-y-3">
+                <a
+                  href="#"
+                  className="block py-3 text-lg text-text-secondary"
+                >
+                  Log in
+                </a>
+                <motion.a
+                  href="#cta"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full py-4 text-center rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Start Free
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }
 
 function Hero() {
+  const [goal, setGoal] = useState("");
+  const [edge, setEdge] = useState("");
+  const [generated, setGenerated] = useState(false);
+  const [generating, setGenerating] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleGenerate = () => {
+    if (!goal || !edge) return;
+    setGenerating(true);
+    setTimeout(() => {
+      setGenerating(false);
+      setGenerated(true);
+    }, 1500);
+  };
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(
+      "Dear Hiring Manager,\n\nI am writing to express my sincere interest in the Software Engineer position at your company. With three years of full-stack development experience and a passion for innovation..."
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-aurora opacity-60" />
       <div className="absolute inset-0 noise-overlay" />
 
-      {/* Floating Orbs */}
       <motion.div
         animate={{ y: [0, -20, 0] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -143,7 +242,6 @@ function Hero() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center">
-        {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -190,18 +288,20 @@ function Hero() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => document.getElementById("demo-input")?.scrollIntoView({ behavior: "smooth" })}
               className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-lg flex items-center justify-center gap-2 glow hover:shadow-xl hover:shadow-primary/30 transition-all"
             >
-              Start Free
+              Try It Free
               <ArrowRight className="w-5 h-5" />
             </motion.button>
-            <motion.button
+            <motion.a
+              href="#how-it-works"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="px-8 py-4 rounded-xl glass text-text-primary font-semibold text-lg flex items-center justify-center gap-2 hover:bg-surface-elevated transition-all"
             >
               See How It Works
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           <motion.div
@@ -225,7 +325,6 @@ function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right - Interactive Demo */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -240,7 +339,6 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="relative glass rounded-2xl p-6 md:p-8 glow"
           >
-            {/* Demo Header */}
             <div className="flex items-center gap-3 mb-6">
               <div className="w-3 h-3 rounded-full bg-red-500" />
               <div className="w-3 h-3 rounded-full bg-yellow-500" />
@@ -250,7 +348,6 @@ function Hero() {
               </span>
             </div>
 
-            {/* Demo Steps */}
             <div className="space-y-4">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -261,9 +358,14 @@ function Hero() {
                 <div className="text-sm text-text-secondary mb-2">
                   Step 1: Your Goal
                 </div>
-                <div className="text-text-primary font-medium">
-                  "I want to work as a software engineer in Tokyo"
-                </div>
+                <input
+                  id="demo-input"
+                  type="text"
+                  value={goal}
+                  onChange={(e) => setGoal(e.target.value)}
+                  placeholder="I want to work as a software engineer in Tokyo"
+                  className="w-full bg-transparent text-text-primary placeholder:text-text-secondary focus:outline-none"
+                />
               </motion.div>
 
               <motion.div
@@ -275,60 +377,86 @@ function Hero() {
                 <div className="text-sm text-text-secondary mb-2">
                   Step 2: Your Edge
                 </div>
-                <div className="text-text-primary font-medium">
-                  "3 years of full-stack experience, remote work fluent"
-                </div>
+                <input
+                  type="text"
+                  value={edge}
+                  onChange={(e) => setEdge(e.target.value)}
+                  placeholder="3 years of full-stack experience, remote work fluent"
+                  className="w-full bg-transparent text-text-primary placeholder:text-text-secondary focus:outline-none"
+                />
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.2 }}
+                animate={{ opacity: generated ? 1 : 0, scale: generated ? 1 : 0.95 }}
                 className="bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl p-4 border border-primary/30"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm text-primary font-medium">
-                    ✨ AI Generated
+                    {generating ? "✨ Generating..." : generated ? "✨ AI Generated" : "✏️ Your Cover Letter"}
                   </span>
-                  <span className="text-xs text-text-secondary">
-                    in 0.3s
-                  </span>
+                  {generated && (
+                    <span className="text-xs text-text-secondary">
+                      in 0.3s
+                    </span>
+                  )}
                 </div>
-                <div className="text-xs text-text-secondary line-clamp-3">
-                  Dear Hiring Manager, <br />
-                  I am writing to express my sincere interest in the Software
-                  Engineer position at your company. With three years of
-                  full-stack development experience and a passion for
-                  innovation...
+                <div className="text-xs text-text-secondary">
+                  {generated ? (
+                    "Dear Hiring Manager,\n\nI am writing to express my sincere interest in the Software Engineer position at your company. With three years of full-stack development experience and a passion for innovation..."
+                  ) : (
+                    "Enter your goal and edge above, then click Generate"
+                  )}
                 </div>
               </motion.div>
             </div>
 
-            {/* Demo Actions */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1.4 }}
+              transition={{ delay: 1 }}
               className="flex gap-3 mt-6"
             >
-              <button className="flex-1 py-3 rounded-lg bg-surface-elevated text-text-primary text-sm font-medium flex items-center justify-center gap-2 hover:bg-border transition-colors">
-                <Download className="w-4 h-4" />
-                PDF
-              </button>
-              <button className="flex-1 py-3 rounded-lg bg-surface-elevated text-text-primary text-sm font-medium flex items-center justify-center gap-2 hover:bg-border transition-colors">
-                <Copy className="w-4 h-4" />
-                Copy
-              </button>
-              <button className="flex-1 py-3 rounded-lg bg-gradient-to-r from-primary to-secondary text-white text-sm font-medium flex items-center justify-center gap-2">
-                <FileText className="w-4 h-4" />
-                Edit
-              </button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleGenerate}
+                disabled={!goal || !edge || generating}
+                className="flex-1 py-3 rounded-lg bg-gradient-to-r from-primary to-secondary text-white text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {generating ? (
+                  <span className="animate-pulse">Generating...</span>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    Generate
+                  </>
+                )}
+              </motion.button>
+              {generated && (
+                <>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleCopy}
+                    className="py-3 px-4 rounded-lg bg-surface-elevated text-text-primary text-sm font-medium flex items-center justify-center gap-2 hover:bg-border transition-all"
+                  >
+                    {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="py-3 px-4 rounded-lg bg-surface-elevated text-text-primary text-sm font-medium flex items-center justify-center gap-2 hover:bg-border transition-all"
+                  >
+                    <Download className="w-4 h-4" />
+                  </motion.button>
+                </>
+              )}
             </motion.div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -350,7 +478,7 @@ function Hero() {
 function SocialProof() {
   const companies = [
     "Google",
-    "Microsoft",
+    "Microsoft", 
     "Amazon",
     "LinkedIn",
     "Tokopedia",
@@ -381,7 +509,7 @@ function SocialProof() {
   );
 }
 
-function BentoGrid() {
+function Features() {
   const features = [
     {
       icon: Globe,
@@ -436,7 +564,7 @@ function BentoGrid() {
               viewport={{ once: true }}
               className={`${feature.colSpan} group`}
             >
-              <div className="h-full glass-hover rounded-2xl p-6 md:p-8 cursor-pointer">
+              <div className="h-full glass-hover rounded-2xl p-6 md:p-8 cursor-pointer hover-glow">
                 <div
                   className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
                 >
@@ -446,6 +574,79 @@ function BentoGrid() {
                   {feature.title}
                 </h3>
                 <p className="text-text-secondary">{feature.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Services() {
+  const services = [
+    {
+      icon: FileText,
+      title: "Cover Letters",
+      description: "AI-crafted personalized cover letters in any language that sound authentically human.",
+      gradient: "from-primary to-secondary",
+    },
+    {
+      icon: MessageSquare,
+      title: "LinkedIn Messages",
+      description: "Personalized connection requests that get accepted. Network with confidence.",
+      gradient: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: User,
+      title: "Personal Bios",
+      description: "Compelling bios for LinkedIn, websites, and speaking engagements.",
+      gradient: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: DollarSign,
+      title: "Sales Emails",
+      description: "Personalized outreach snippets that convert leads into customers.",
+      gradient: "from-green-500 to-emerald-500",
+    },
+  ];
+
+  return (
+    <section id="services" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+            Professional <span className="text-gradient">Communication Tools</span>
+          </h2>
+          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+            Everything you need to communicate confidently in your professional journey.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="group"
+            >
+              <div className="h-full glass-hover rounded-2xl p-8 cursor-pointer hover-glow">
+                <div
+                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}
+                >
+                  <service.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-display font-bold mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-text-secondary">{service.description}</p>
               </div>
             </motion.div>
           ))}
@@ -598,7 +799,7 @@ function Testimonials() {
   ];
 
   return (
-    <section className="py-24 relative">
+    <section id="testimonials" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -625,10 +826,7 @@ function Testimonials() {
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 fill-accent text-accent"
-                  />
+                  <Star key={i} className="w-5 h-5 fill-accent text-accent" />
                 ))}
               </div>
               <p className="text-text-primary mb-6">"{testimonial.quote}"</p>
@@ -724,9 +922,7 @@ function Pricing() {
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
               className={`relative ${
-                plan.popular
-                  ? "md:-mt-4 md:mb-4"
-                  : ""
+                plan.popular ? "md:-mt-4 md:mb-4" : ""
               }`}
             >
               {plan.popular && (
@@ -736,9 +932,7 @@ function Pricing() {
               )}
               <div
                 className={`h-full glass-hover rounded-2xl p-8 ${
-                  plan.popular
-                    ? "border-primary/50 glow"
-                    : ""
+                  plan.popular ? "border-primary/50 glow" : ""
                 }`}
               >
                 <h3 className="text-2xl font-display font-bold mb-2">
@@ -783,9 +977,89 @@ function Pricing() {
   );
 }
 
+function NewsletterForm({ inFooter = false }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    
+    setStatus("loading");
+    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    
+    console.log("Newsletter signup:", email);
+    setStatus("success");
+    setEmail("");
+    
+    setTimeout(() => setStatus("idle"), 3000);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={`flex gap-3 ${inFooter ? "flex-col sm:flex-row" : ""}`}>
+      <div className="relative flex-1">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          className="w-full px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-primary/50"
+          required
+        />
+      </div>
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        disabled={status === "loading" || status === "success"}
+        className={`px-6 py-3 rounded-xl font-semibold flex items-center gap-2 ${
+          status === "success"
+            ? "bg-green-500 text-white"
+            : "bg-gradient-to-r from-primary to-secondary text-white"
+        }`}
+      >
+        {status === "loading" ? (
+          <span className="animate-pulse">Subscribing...</span>
+        ) : status === "success" ? (
+          <>
+            <Check className="w-5 h-5" />
+            Subscribed!
+          </>
+        ) : (
+          <>
+            <Send className="w-4 h-4" />
+            Subscribe
+          </>
+        )}
+      </motion.button>
+    </form>
+  );
+}
+
+function TrustBadges() {
+  const badges = [
+    { name: "SOC 2", desc: "Certified" },
+    { name: "GDPR", desc: "Compliant" },
+    { name: "256-bit", desc: "Encryption" },
+    { name: "ISO 27001", desc: "Certified" },
+  ];
+
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-6 py-4">
+      {badges.map((badge) => (
+        <div key={badge.name} className="flex items-center gap-2 text-text-secondary">
+          <Shield className="w-5 h-5 text-green-400" />
+          <span className="text-sm font-medium">{badge.name}</span>
+          <span className="text-sm opacity-60">• {badge.desc}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function CTA() {
   return (
-    <section className="py-24 relative">
+    <section id="cta" className="py-24 relative">
       <div className="absolute inset-0 bg-gradient-aurora opacity-40" />
 
       <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
@@ -802,31 +1076,10 @@ function CTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <motion.input
-              type="email"
-              placeholder="Enter your email"
-              className="px-6 py-4 rounded-xl glass text-text-primary placeholder:text-text-secondary w-full sm:w-80 focus:outline-none focus:border-primary/50"
-              whileFocus={{ scale: 1.02 }}
-            />
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold glow"
-            >
-              Start Free →
-            </motion.button>
+            <NewsletterForm />
           </div>
 
-          <div className="flex items-center justify-center gap-6 text-sm text-text-secondary">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4" />
-              <span>Secure & Private</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="w-4 h-4" />
-              <span>No credit card</span>
-            </div>
-          </div>
+          <TrustBadges />
         </motion.div>
       </div>
     </section>
@@ -834,23 +1087,43 @@ function CTA() {
 }
 
 function Footer() {
-  const links = {
+  const footerLinks = {
     Product: [
-      "Features",
-      "Pricing",
-      "How it Works",
-      "Testimonials",
+      { label: "Features", href: "#features" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "Services", href: "#services" },
+      { label: "How it Works", href: "#how-it-works" },
     ],
-    Company: ["About", "Blog", "Careers", "Contact"],
-    Resources: ["Help Center", "Privacy Policy", "Terms of Service"],
-    Connect: ["Twitter", "LinkedIn", "Email"],
+    Company: [
+      { label: "About", href: "#" },
+      { label: "Careers", href: "#" },
+      { label: "Press", href: "#" },
+      { label: "Contact", href: "#" },
+    ],
+    Resources: [
+      { label: "Help Center", href: "#" },
+      { label: "API Docs", href: "#" },
+      { label: "Blog", href: "#" },
+      { label: "Status", href: "#" },
+    ],
+    Legal: [
+      { label: "Privacy Policy", href: "#" },
+      { label: "Terms of Service", href: "#" },
+      { label: "Cookie Policy", href: "#" },
+    ],
   };
+
+  const socialLinks = [
+    { icon: Twitter, href: "https://x.com", label: "Twitter" },
+    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:info@mytegami.win", label: "Email" },
+  ];
 
   return (
     <footer className="py-16 border-t border-border/30">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-5 gap-8 mb-12">
-          <div className="md:col-span-2">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+          <div className="lg:col-span-2">
             <a href="#" className="flex items-center gap-2 text-xl font-display font-bold mb-4">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
                 <Globe className="w-4 h-4 text-white" />
@@ -858,42 +1131,56 @@ function Footer() {
               <span className="text-gradient">MyTegami</span>
             </a>
             <p className="text-text-secondary mb-4 max-w-xs">
-              Empowering global talent to express themselves confidently. Write
-              boldly. Apply globally.
+              Empowering global talent to express themselves confidently.
+              Write boldly. Apply globally.
             </p>
+            
+            <div className="mb-6">
+              <p className="text-sm text-text-secondary mb-3">Get the App</p>
+              <div className="flex gap-3">
+                <a href="#" className="transition-transform hover:scale-105">
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" 
+                    alt="App Store" 
+                    className="h-10 rounded-lg"
+                  />
+                </a>
+                <a href="#" className="transition-transform hover:scale-105">
+                  <img 
+                    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_US.svg" 
+                    alt="Google Play" 
+                    className="h-10 rounded-lg"
+                  />
+                </a>
+              </div>
+            </div>
+
             <div className="flex gap-4">
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-surface-elevated flex items-center justify-center hover:bg-border transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-surface-elevated flex items-center justify-center hover:bg-border transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-lg bg-surface-elevated flex items-center justify-center hover:bg-border transition-colors"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-lg bg-surface-elevated flex items-center justify-center hover:bg-border transition-colors"
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {Object.entries(links).map(([category, items]) => (
+          {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h4 className="font-semibold mb-4">{category}</h4>
               <ul className="space-y-3">
-                {items.map((item) => (
-                  <li key={item}>
+                {links.map((link) => (
+                  <li key={link.label}>
                     <a
-                      href="#"
-                      className="text-text-secondary hover:text-text-primary transition-colors"
+                      href={link.href}
+                      className="text-text-secondary hover:text-text-primary transition-colors text-sm"
                     >
-                      {item}
+                      {link.label}
                     </a>
                   </li>
                 ))}
@@ -902,17 +1189,34 @@ function Footer() {
           ))}
         </div>
 
-        <div className="pt-8 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-text-secondary text-sm">
+        <div className="pt-8 border-t border-border/30">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+            <div className="text-center md:text-left">
+              <p className="text-text-secondary text-sm mb-2">
+                Subscribe to our newsletter for job tips & AI insights
+              </p>
+              <NewsletterForm inFooter />
+            </div>
+          </div>
+          
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-text-secondary">
+              <a href="mailto:info@mytegami.win" className="flex items-center gap-2 hover:text-text-primary">
+                <Mail className="w-4 h-4" />
+                info@mytegami.win
+              </a>
+              <span className="flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                +1234567890
+              </span>
+            </div>
+            <div className="flex items-center gap-4">
+              <TrustBadges />
+            </div>
+          </div>
+          
+          <div className="mt-6 pt-6 border-t border-border/30 text-center text-text-secondary text-sm">
             © 2025 MyTegami.win. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6 text-sm text-text-secondary">
-            <a href="#" className="hover:text-text-primary transition-colors">
-              Privacy
-            </a>
-            <a href="#" className="hover:text-text-primary transition-colors">
-              Terms
-            </a>
           </div>
         </div>
       </div>
@@ -926,7 +1230,8 @@ export default function Home() {
       <Navbar />
       <Hero />
       <SocialProof />
-      <BentoGrid />
+      <Features />
+      <Services />
       <HowItWorks />
       <Stats />
       <Testimonials />
