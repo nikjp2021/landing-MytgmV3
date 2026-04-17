@@ -486,30 +486,31 @@ function Hero() {
 
 function SocialProof() {
   const companies = [
-    "Google",
-    "Microsoft", 
-    "Amazon",
-    "LinkedIn",
-    "Tokopedia",
-    "Grab",
+    { name: "Google", color: "text-white" },
+    { name: "Microsoft", color: "text-white" }, 
+    { name: "Amazon", color: "text-white" },
+    { name: "LinkedIn", color: "text-white" },
+    { name: "Tokopedia", color: "text-white" },
+    { name: "Grab", color: "text-white" },
   ];
 
   return (
-    <section className="py-12 border-y border-border/30">
+    <section className="py-16 relative border-y border-white/5">
       <div className="max-w-7xl mx-auto px-6">
         <p className="text-center text-text-secondary text-sm mb-8">
           Trusted by professionals at leading companies worldwide
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50">
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
           {companies.map((company, i) => (
             <motion.div
-              key={company}
+              key={company.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="text-xl md:text-2xl font-display font-bold text-text-secondary"
+              viewport={{ once: true }}
+              className="text-xl md:text-2xl font-display font-bold text-white/40 hover:text-white/70 transition-all duration-300"
             >
-              {company}
+              {company.name}
             </motion.div>
           ))}
         </div>
@@ -700,44 +701,55 @@ function HowItWorks() {
     {
       number: "01",
       title: "Tell us your story",
-      description:
-        "Enter just 2 phrases: your goal + what makes you unique. That's it.",
+      description: "Enter just 2 phrases: your goal + what makes you unique. That's it.",
       icon: FileText,
+      gradient: "from-primary via-purple-400 to-primary",
+      glowColor: "rgba(167, 139, 250, 0.3)",
+      stepColor: "from-blue-500 to-cyan-500",
     },
     {
       number: "02",
       title: "AI crafts your letter",
-      description:
-        "Our AI writes a personalized, culturally-aware cover letter in seconds.",
+      description: "Our AI writes a personalized, culturally-aware cover letter in seconds.",
       icon: Sparkles,
+      gradient: "from-accent via-orange-400 to-accent",
+      glowColor: "rgba(249, 115, 22, 0.3)",
+      stepColor: "from-orange-500 to-amber-500",
     },
     {
       number: "03",
       title: "Download & Apply",
-      description:
-        "Get your letter in PDF, DOCX, or simply copy. Ready to submit.",
+      description: "Get your letter in PDF, DOCX, or simply copy. Ready to submit.",
       icon: Download,
+      gradient: "from-green-500 via-emerald-400 to-green-500",
+      glowColor: "rgba(16, 185, 129, 0.3)",
+      stepColor: "from-green-500 to-emerald-500",
     },
   ];
 
   return (
     <section id="how-it-works" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Background effects */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[80px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px]" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            From zero to <span className="text-gradient">application</span> in
-            minutes
+            From zero to <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_200%] animate-gradient">application</span> in minutes
           </h2>
           <p className="text-xl text-text-secondary max-w-2xl mx-auto">
             Three simple steps. No resume needed. Just your story.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-4">
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
@@ -745,26 +757,35 @@ function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
-              className="relative"
+              className="relative group"
             >
-              <div className="glass-hover rounded-2xl p-8 text-center h-full">
-                <div className="text-6xl font-display font-bold text-primary/20 mb-4">
-                  {step.number}
-                </div>
-                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6">
-                  <step.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-display font-bold mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-text-secondary">{step.description}</p>
-              </div>
-
+              {/* Connecting line */}
               {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                  <ChevronRight className="w-8 h-8 text-primary/30" />
+                <div className="hidden md:block absolute top-1/2 -right-2 z-10">
+                  <ChevronRight className="w-8 h-8 text-primary/50" />
                 </div>
               )}
+              
+              <div className="relative h-full rounded-2xl p-[1px] bg-gradient-to-br from-white/10 to-white/5">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="h-full glass-premium rounded-2xl p-8 text-center h-full relative overflow-hidden group-hover:shadow-glow transition-all duration-500">
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: `radial-gradient(circle at 50% 0%, ${step.glowColor}, transparent 60%)` }} />
+                  
+                  <div className="relative">
+                    <div className="text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-br from-white/20 to-white/5 mb-4">
+                      {step.number}
+                    </div>
+                    <div className="relative w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 shadow-glow">
+                      <step.icon className="w-10 h-10 text-white" />
+                    </div>
+                    <h3 className="relative text-2xl font-display font-bold mb-3 text-white">
+                      {step.title}
+                    </h3>
+                    <p className="relative text-text-secondary">{step.description}</p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -775,18 +796,20 @@ function HowItWorks() {
 
 function Stats() {
   const stats = [
-    { value: "150+", label: "Countries", icon: Globe },
-    { value: "50,000+", label: "Letters Generated", icon: FileText },
-    { value: "15+", label: "Languages", icon: Languages },
-    { value: "4.9/5", label: "User Rating", icon: Star },
+    { value: "150+", label: "Countries", icon: Globe, iconGradient: "text-blue-400" },
+    { value: "50,000+", label: "Letters Generated", icon: FileText, iconGradient: "text-primary" },
+    { value: "15+", label: "Languages", icon: Languages, iconGradient: "text-purple-400" },
+    { value: "4.9/5", label: "User Rating", icon: Star, iconGradient: "text-accent" },
   ];
 
   return (
-    <section className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-
+    <section className="py-24 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[100px]" />
+      
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -794,10 +817,12 @@ function Stats() {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center group"
             >
-              <stat.icon className="w-8 h-8 mx-auto text-primary mb-4" />
-              <div className="text-4xl md:text-5xl font-display font-bold text-gradient mb-2">
+              <div className="relative w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-surface to-surface-elevated flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-white/10 group-hover:border-white/20 group-hover:shadow-glow">
+                <stat.icon className={`w-8 h-8 ${stat.iconGradient}`} />
+              </div>
+              <div className="text-4xl md:text-5xl font-display font-bold text-white mb-2">
                 {stat.value}
               </div>
               <div className="text-text-secondary">{stat.label}</div>
@@ -839,44 +864,56 @@ function Testimonials() {
 
   return (
     <section id="testimonials" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Background glow */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[100px] -translate-x-1/2" />
+        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] translate-x-1/2" />
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Global success <span className="text-gradient">stories</span>
+            Global success <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_200%] animate-gradient">stories</span>
           </h2>
           <p className="text-xl text-text-secondary">
             Join thousands who've landed their dream jobs
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={testimonial.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
-              className="glass-hover rounded-2xl p-8"
+              className="group"
             >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-accent text-accent" />
-                ))}
-              </div>
-              <p className="text-text-primary mb-6">"{testimonial.quote}"</p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
-                  {testimonial.avatar}
-                </div>
-                <div>
-                  <div className="font-semibold">{testimonial.name}</div>
-                  <div className="text-sm text-text-secondary">
-                    {testimonial.role}, {testimonial.location}
+              <div className="relative h-full rounded-2xl p-[1px] bg-gradient-to-br from-white/10 to-white/5">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="h-full glass-premium rounded-2xl p-8 group-hover:shadow-glow transition-all duration-500">
+                  {/* Star rating with glow */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-accent text-accent drop-shadow-lg" />
+                    ))}
+                  </div>
+                  <p className="text-text-primary mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center text-white font-bold shadow-glow">
+                      {testimonial.avatar}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-white">{testimonial.name}</div>
+                      <div className="text-sm text-text-secondary">
+                        {testimonial.role}, {testimonial.location}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1110,8 +1147,14 @@ function TrustBadges() {
 
 function CTA() {
   return (
-    <section id="cta" className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-aurora opacity-40" />
+    <section id="cta" className="py-24 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px]" />
+        <div className="absolute top-1/2 right-1/4 w-[300px] h-[300px] bg-secondary/10 rounded-full blur-[60px]" />
+      </div>
 
       <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
         <motion.div
@@ -1120,7 +1163,7 @@ function CTA() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-            Ready to go <span className="text-gradient">global</span>?
+            Ready to go <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-secondary bg-[length:200%_200%] animate-gradient">global</span>?
           </h2>
           <p className="text-xl text-text-secondary mb-8">
             Join 50,000+ professionals who've transformed their job search.
