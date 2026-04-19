@@ -150,26 +150,25 @@ export default function JapanPage() {
 
   return (
     <>
-      {/* Language Toggle */}
-      <div className="fixed top-20 right-4 z-50 flex items-center gap-2">
-        <button
-          onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
-          className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
-            language === 'ja'
-              ? "bg-gradient-to-r from-primary to-secondary text-white"
-              : "glass text-text-secondary hover:text-white"
-          }`}
-        >
-          {language === 'en' ? '日本語' : 'English'}
-        </button>
-      </div>
-
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="min-h-[60vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#0A1628] to-black/80"
       >
+        {/* Language Toggle inside hero */}
+        <div className="absolute top-6 right-6 z-20">
+          <button
+            onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
+            className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+              language === 'ja'
+                ? "bg-gradient-to-r from-primary to-secondary text-white"
+                : "glass text-text-secondary hover:text-white"
+            }`}
+          >
+            {language === 'en' ? '日本語' : 'English'}
+          </button>
+        </div>
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px]" />
         </div>
@@ -188,7 +187,6 @@ export default function JapanPage() {
                 className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_200%] text-white font-semibold text-lg flex items-center justify-center gap-2 shadow-glow"
               >
                 {t.ctaFree}
-                <ArrowRight className="w-5 h-5" />
               </motion.button>
             </Link>
             <Link href="/pricing">
