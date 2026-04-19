@@ -154,10 +154,10 @@ export default function JapanPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="min-h-[60vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#0A1628] to-black/80"
+        className="min-h-[60vh] pt-20 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#0A1628] to-black/80"
       >
         {/* Language Toggle inside hero */}
-        <div className="absolute top-6 right-6 z-20">
+        <div className="absolute top-24 right-6 z-20">
           <button
             onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
             className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${

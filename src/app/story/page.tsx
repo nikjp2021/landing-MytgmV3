@@ -17,7 +17,7 @@ export default function StoryPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="min-h-[60vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#0A1628] to-black/80"
+        className="min-h-[60vh] pt-20 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#0A1628] to-black/80"
       >
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px]" />
