@@ -1,0 +1,16 @@
+export {
+  GlobeIcon,
+  ShieldIcon,
+  SparkleIcon,
+  DocumentIcon,
+  MessageIcon,
+  UserIcon,
+  TargetIcon,
+  CheckCircleIcon,
+  StarIcon,
+  JapanIcon,
+  GraduationIcon,
+  BuildingIcon,
+  RocketIcon,
+  ClockIcon,
+} from "./PremiumIcon";

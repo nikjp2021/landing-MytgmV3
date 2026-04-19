@@ -3,37 +3,27 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Globe,
-  Sparkles,
-  Check,
-  ArrowRight,
-  Shield,
-  FileText,
-  MessageSquare,
-  User,
-  DollarSign,
-  ChevronRight,
-} from "lucide-react";
+import { Check, ArrowRight, ChevronRight, DollarSign, Sparkles, Shield } from "lucide-react";
+import { GlobeIcon, SparkleIcon, ShieldIcon, DocumentIcon, MessageIcon, UserIcon, RocketIcon, StarIcon, CheckCircleIcon, GraduationIcon, BuildingIcon, JapanIcon, ClockIcon } from "@/components/icons";
 import TrustBadges from "@/components/TrustBadges";
 import LiveCounter from "@/components/LiveCounter";
 
 function Hero() {
   const features = [
     {
-      icon: Globe,
+      icon: GlobeIcon,
       title: "Any Language",
       description: "Write in Japanese, German, Spanish... AI crafts it like a local.",
       gradient: "from-blue-500 to-cyan-500",
     },
     {
-      icon: Sparkles,
+      icon: SparkleIcon,
       title: "Human-Written",
       description: "Passes every AI detector. Sounds authentically human.",
       gradient: "from-purple-500 to-pink-500",
     },
     {
-      icon: Shield,
+      icon: ShieldIcon,
       title: "Secure & Private",
       description: "256-bit encryption. GDPR compliant. Your data is safe.",
       gradient: "from-green-500 to-emerald-500",
@@ -41,9 +31,9 @@ function Hero() {
   ];
 
   const services = [
-    { icon: FileText, title: "Cover Letters", gradient: "from-primary to-secondary" },
-    { icon: MessageSquare, title: "LinkedIn", gradient: "from-blue-500 to-cyan-500" },
-    { icon: User, title: "Personal Bios", gradient: "from-purple-500 to-pink-500" },
+    { icon: DocumentIcon, title: "Cover Letters", gradient: "from-primary to-secondary" },
+    { icon: MessageIcon, title: "LinkedIn", gradient: "from-blue-500 to-cyan-500" },
+    { icon: UserIcon, title: "Personal Bios", gradient: "from-purple-500 to-pink-500" },
     { icon: DollarSign, title: "Sales Emails", gradient: "from-green-500 to-emerald-500" },
   ];
 
@@ -214,8 +204,8 @@ function Hero() {
               viewport={{ once: true }}
               className="glass-premium rounded-xl p-4 text-center group hover:shadow-glow transition-all"
             >
-              <div className={`w-12 h-12 mx-auto rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
-                <service.icon className="w-6 h-6 text-white" />
+              <div className={`w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
+                <service.icon size={28} />
               </div>
               <span className="text-sm font-medium">{service.title}</span>
             </motion.div>

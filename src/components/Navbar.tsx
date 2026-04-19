@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe, Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronRight } from "lucide-react";
+import { GlobeIcon } from "@/components/icons";
 
 const navItems = [
   {
@@ -68,8 +69,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 text-xl font-display font-bold">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-            <Globe className="w-5 h-5 text-white" />
+          <div className="w-10 h-10">
+            <GlobeIcon size={40} />
           </div>
           <span className="text-gradient">MyTegami</span>
           <span className="hidden sm:block px-2 py-0.5 text-[10px] font-medium bg-accent/20 text-accent rounded-full">
