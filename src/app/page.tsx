@@ -256,6 +256,52 @@ function HomeCTA() {
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "MyTegami.win",
+            "alternateName": "MyTegami",
+            "description": "AI-powered cover letter and career communication tool. Generate professional cover letters in 15+ languages with just 2 phrases.",
+            "url": "https://mytegami.win",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Web, iOS, Android",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock",
+              "description": "Free starter plan with 3 generations"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "50000",
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "author": {
+              "@type": "Organization",
+              "name": "MyTegami",
+              "url": "https://mytegami.win"
+            },
+            "featureList": [
+              "AI Cover Letter Generator",
+              "LinkedIn Message Templates",
+              "Personal Bio Generator",
+              "Sales Email Generator",
+              "Resume Optimizer",
+              "Japan Career Suite",
+              "15+ Languages",
+              "ATS Score Boost"
+            ],
+            "screenshot": "https://mytegami.win/og-image.png",
+            "softwareVersion": "3.0"
+          })
+        }}
+      />
       <Hero />
       <HomeCTA />
     </>
