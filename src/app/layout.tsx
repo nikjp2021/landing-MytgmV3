@@ -17,7 +17,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#030305",
+  themeColor: "#3B82F6",
 };
 
 const siteUrl = "https://mytegami.win";
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: "MyTegami.win – AI Cover Letter Generator | Write Boldly. Apply Globally.",
     template: "%s | MyTegami.win",
   },
-  description: "Generate professional cover letters in 15+ languages with AI. Just 2 phrases = done. Used by 50,000+ job seekers. Free to start. Land your dream job faster.",
+  description: "Create multilingual, AI-crafted cover letters with just two phrases. No resume needed. Built for students, migrants, and global job seekers.",
   keywords: [
     "AI cover letter generator",
     "cover letter maker",
@@ -69,11 +69,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "MyTegami.win",
-    title: "MyTegami.win – AI Cover Letter Generator | Write Boldly. Apply Globally.",
-    description: "Generate professional cover letters in 15+ languages with AI. Just 2 phrases = done. Used by 50,000+ job seekers. Free to start.",
+    title: "MyTegami.win – Write Boldly. Apply Globally.",
+    description: "Create multilingual, AI-crafted cover letters from just two phrases. No resume needed. Built for students, migrants, and global job seekers.",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://imgur.com/VLCfDjG",
         width: 1200,
         height: 630,
         alt: "MyTegami - AI Cover Letter Generator",
@@ -82,10 +82,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "MyTegami.win – AI Cover Letter Generator",
-    description: "Generate professional cover letters in 15+ languages with AI. Just 2 phrases = done.",
-    images: ["/og-image.png"],
-    creator: "@mytegami",
+    title: "MyTegami.win – Write Boldly. Apply Globally.",
+    description: "Multilingual cover letters from two simple phrases. No resume required. Loved by students & global talent.",
+    images: ["https://imgur.com/VLCfDjG"],
+    creator: "@MyTegami",
   },
   alternates: {
     canonical: siteUrl,
@@ -96,6 +96,18 @@ export const metadata: Metadata = {
   },
   category: "productivity",
   classification: "AI Cover Letter & Career Communication Tool",
+  icons: {
+    icon: [
+      { url: "https://i.imgur.com/i9hVRuW.png", type: "image/png", sizes: "32x32" },
+      { url: "https://i.imgur.com/i9hVRuW.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "https://i.imgur.com/i9hVRuW.png" },
+    ],
+    shortcut: [
+      { url: "https://i.imgur.com/i9hVRuW.png" },
+    ],
+  },
 };
 
 export default function RootLayout({

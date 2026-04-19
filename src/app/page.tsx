@@ -264,7 +264,7 @@ export default function Home() {
             "@type": "WebApplication",
             "name": "MyTegami.win",
             "alternateName": "MyTegami",
-            "description": "AI-powered cover letter and career communication tool. Generate professional cover letters in 15+ languages with just 2 phrases.",
+            "description": "Create multilingual, AI-crafted cover letters with just two phrases. No resume needed. Built for students, migrants, and global job seekers.",
             "url": "https://mytegami.win",
             "applicationCategory": "ProductivityApplication",
             "operatingSystem": "Web, iOS, Android",
@@ -277,7 +277,7 @@ export default function Home() {
             },
             "aggregateRating": {
               "@type": "AggregateRating",
-              "ratingValue": "4.8",
+              "ratingValue": "4.9",
               "reviewCount": "50000",
               "bestRating": "5",
               "worstRating": "1"
@@ -297,8 +297,14 @@ export default function Home() {
               "15+ Languages",
               "ATS Score Boost"
             ],
-            "screenshot": "https://mytegami.win/og-image.png",
-            "softwareVersion": "3.0"
+            "image": "https://imgur.com/VLCfDjG",
+            "screenshot": "https://imgur.com/VLCfDjG",
+            "softwareVersion": "3.0",
+            "producer": {
+              "@type": "Organization",
+              "name": "MyTegami",
+              "url": "https://mytegami.win"
+            }
           })
         }}
       />
