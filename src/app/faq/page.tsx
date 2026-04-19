@@ -158,12 +158,15 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between text-left"
+        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
       >
-        <span className="font-medium">{question}</span>
-        <ChevronDown
-          className={`w-5 h-5 transition-transform ${isOpen ? "rotate-180" : ""}`}
-        />
+        <span className="font-medium pr-4">{question}</span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
+        </motion.div>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -171,9 +174,10 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-4 text-text-secondary">{answer}</div>
+            <div className="px-6 pb-4 text-text-secondary leading-relaxed">{answer}</div>
           </motion.div>
         )}
       </AnimatePresence>
