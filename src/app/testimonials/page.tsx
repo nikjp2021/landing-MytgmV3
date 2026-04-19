@@ -34,7 +34,7 @@ export default function TestimonialsPage() {
       role: "UX Designer",
       location: "Tokyo → San Francisco",
       avatar: "KY",
-      quote: "The Resume Optimizer helped me pass ATS systems I was rejected by before. Got 2 offers inmy first month.",
+      quote: "The Resume Optimizer helped me pass ATS systems I was rejected by before. Got 2 offers in my first month.",
       result: "2 job offers received",
     },
     {
