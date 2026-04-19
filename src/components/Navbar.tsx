@@ -14,11 +14,13 @@ import {
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/features", label: "Features" },
+  { href: "/japan", label: "Japan Hub" },
   { href: "/pricing", label: "Pricing" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/testimonials", label: "Testimonials" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
+  { href: "/story", label: "Our Story" },
 ];
 
 export default function Navbar() {
@@ -47,7 +49,15 @@ export default function Navbar() {
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
             <Globe className="w-5 h-5 text-white" />
           </div>
-          <span className="text-gradient hidden sm:block">MyTegami</span>
+          <div className="flex flex-col items-start">
+            <span className="text-gradient hidden sm:block">MyTegami</span>
+            <div className="flex items-center gap-1 text-xs">
+              <span className="text-primary/80">From</span>
+              <span className="text-accent font-medium">Nagayoshi Lab</span>
+              <span className="text-primary/80 mx-1">•</span>
+              <span className="text-primary/80">Shizuoka Univ</span>
+            </div>
+          </div>
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
