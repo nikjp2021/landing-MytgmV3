@@ -151,6 +151,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
   return (
     <motion.div
+      layout
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -163,24 +164,25 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
         <span className="font-medium pr-4">{question}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
         >
           <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
         </motion.div>
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
-            <div className="px-6 pb-4 text-text-secondary leading-relaxed">{answer}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        initial={false}
+        animate={{
+          height: isOpen ? "auto" : 0,
+          opacity: isOpen ? 1 : 0
+        }}
+        transition={{
+          duration: 0.3,
+          ease: [0.4, 0, 0.2, 1]
+        }}
+        className="overflow-hidden"
+      >
+        <div className="px-6 pb-4 text-text-secondary leading-relaxed">{answer}</div>
+      </motion.div>
     </motion.div>
   );
 }
