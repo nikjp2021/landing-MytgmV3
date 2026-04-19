@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Gift, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { trackExitPopupCta } from "@/lib/analytics";
 
 export default function ExitPopup() {
   const [isVisible, setIsVisible] = useState(false);
@@ -12,11 +13,13 @@ export default function ExitPopup() {
   useEffect(() => {
     const handleMouseLeave = (e: MouseEvent) => {
       if (hasTriggered) return;
+      if (sessionStorage.getItem("exitPopupShown")) return;
 
       const mouseY = e.clientY;
       if (mouseY < 10) {
         setIsVisible(true);
         setHasTriggered(true);
+        sessionStorage.setItem("exitPopupShown", "true");
       }
     };
 
@@ -25,12 +28,15 @@ export default function ExitPopup() {
   }, [hasTriggered]);
 
   useEffect(() => {
+    if (sessionStorage.getItem("exitPopupShown")) return;
+
     const timer = setTimeout(() => {
       if (!hasTriggered) {
         setIsVisible(true);
         setHasTriggered(true);
+        sessionStorage.setItem("exitPopupShown", "true");
       }
-    }, 15000);
+    }, 30000);
 
     return () => clearTimeout(timer);
   }, [hasTriggered]);
@@ -86,8 +92,11 @@ export default function ExitPopup() {
 
             <Link
               href="/pricing"
-              onClick={closePopup}
-              className="block w-full py-4 rounded-xl bg-gradient-to-r from-primary via-secondary to-accent text-white font-semibold flex items-center justify-center gap-2"
+              onClick={() => {
+                closePopup();
+                trackExitPopupCta();
+              }}
+              className="block w-full py-4 rounded-xl bg-gradient-to-r from-primary via-secondary to-accent text-white font-semibold flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform"
             >
               Claim Discount
               <ArrowRight className="w-5 h-5" />

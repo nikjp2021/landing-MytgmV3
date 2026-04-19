@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Check, Loader2 } from "lucide-react";
 import ContactBooking from "@/components/ContactBooking";
 
 export default function ContactPage() {
@@ -247,10 +247,13 @@ export default function ContactPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={status === "loading" || status === "success"}
-                className="w-full py-4 rounded-xl font-semibold bg-gradient-to-r from-primary to-secondary text-white flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-xl font-semibold bg-gradient-to-r from-primary to-secondary text-white flex items-center justify-center gap-2 disabled:opacity-70"
               >
                 {status === "loading" ? (
-                  "Sending..."
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Sending...
+                  </>
                 ) : status === "success" ? (
                   <>
                     <Check className="w-5 h-5" />
