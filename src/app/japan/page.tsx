@@ -151,7 +151,7 @@ export default function JapanPage() {
   return (
     <>
       {/* Language Toggle */}
-      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+      <div className="fixed top-20 right-4 z-50 flex items-center gap-2">
         <button
           onClick={() => setLanguage(language === 'en' ? 'ja' : 'en')}
           className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
