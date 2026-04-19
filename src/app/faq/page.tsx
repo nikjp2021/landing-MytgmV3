@@ -155,13 +155,13 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="glass-premium rounded-xl overflow-hidden"
+      className="glass-premium rounded-xl overflow-hidden border border-border/50"
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
+        className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
       >
-        <span className="font-medium pr-4">{question}</span>
+        <span className="font-medium text-white pr-4">{question}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
@@ -181,7 +181,9 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
         }}
         className="overflow-hidden"
       >
-        <div className="px-6 pb-4 text-text-secondary leading-relaxed">{answer}</div>
+        <div className="px-6 pb-6 text-text-secondary leading-relaxed border-t border-border/30 mt-1">
+          {answer}
+        </div>
       </motion.div>
     </motion.div>
   );
