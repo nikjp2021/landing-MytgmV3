@@ -147,10 +147,23 @@ function Hero() {
             </div>
           </motion.div>
 
+          {/* Nagayoshi Lab Teaser */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
+            className="mt-8 text-center"
+          >
+            <p className="text-sm text-text-secondary italic">
+              Built in <span className="text-accent font-medium">Nagayoshi Lab</span>, 
+              <span className="text-primary/80">Shizuoka University</span>
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
             className="mt-8"
           >
             <TrustBadges />

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter, Noto_Sans_JP } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ExitPopup from "@/components/ExitPopup";
@@ -13,6 +13,12 @@ const inter = Inter({
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-display",
+});
+
+const notoSansJp = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-noto-sans-jp",
 });
 
 export const viewport: Viewport = {
@@ -118,9 +124,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${inter.variable} ${plusJakarta.variable} font-body bg-background text-text-primary antialiased`}
-      >
+<body
+         className={`${inter.variable} ${plusJakarta.variable} ${notoSansJp.variable} font-body bg-background text-text-primary antialiased`}
+       >
         <Navbar />
         <main className="min-h-screen">
           {children}

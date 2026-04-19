@@ -351,3 +351,34 @@
     radial-gradient(at 80% 50%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
     radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
 }
+
+/* Japanese-inspired patterns */
+.seigaiha-pattern {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.asanoha-pattern {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 215, 0, 0.1) 0, rgba(255, 215, 0, 0.1) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(60deg, rgba(255, 215, 0, 0.1) 0, rgba(255, 215, 0, 0.1) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(120deg, rgba(255, 215, 0, 0.1) 0, rgba(255, 215, 0, 0.1) 1px, transparent 1px, transparent 20px);
+  background-size: 40px 40px;
+}
+
+/* Sakura petal pattern */
+.sakura-pattern {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(255, 182, 193, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(255, 182, 193, 0.15) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Subtle gold accent for premium feel */
+.gold-accent {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}

@@ -12,6 +12,7 @@ import {
   DollarSign,
   Check,
   Star,
+  ArrowRight,
 } from "lucide-react";
 
 export default function StoryPage() {

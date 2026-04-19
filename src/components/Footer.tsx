@@ -6,11 +6,12 @@ import { Globe, Mail, Phone, Twitter, Linkedin, Shield } from "lucide-react";
 const footerLinks = {
   Product: [
     { label: "Features", href: "/features" },
+    { label: "Japan Hub", href: "/japan" },
     { label: "Pricing", href: "/pricing" },
     { label: "How It Works", href: "/how-it-works" },
   ],
   Company: [
-    { label: "About", href: "/#about" },
+    { label: "Our Story", href: "/story" },
     { label: "Testimonials", href: "/testimonials" },
     { label: "Contact", href: "/contact" },
   ],

@@ -1,6 +1,6 @@
 "use client";
 
-import { Shield, Lock, Award, CheckCircle } from "lucide-react";
+import { Shield, Lock, Award, CheckCircle, Sparkles } from "lucide-react";
 
 const badges = [
   {
@@ -22,6 +22,11 @@ const badges = [
     icon: CheckCircle,
     label: "50,000+ Users",
     description: "Worldwide trust",
+  },
+  {
+    icon: Sparkles,
+    label: "Research-backed",
+    description: "Nagayoshi Lab, Shizuoka Univ",
   },
 ];
 
