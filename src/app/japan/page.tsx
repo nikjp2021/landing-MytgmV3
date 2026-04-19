@@ -4,16 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Globe,
+  ArrowRight,
   FileText,
   Target,
   Shield,
-  Sparkles,
   MessageSquare,
-  User,
-  DollarSign,
   Check,
-  Calendar,
 } from "lucide-react";
 
 export default function JapanPage() {
@@ -185,7 +181,7 @@ export default function JapanPage() {
             {t.heroSubtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#cta">
+            <Link href="/pricing">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -262,7 +258,7 @@ export default function JapanPage() {
             Access specialized tools designed for success in Japan's unique employment landscape.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#cta">
+            <Link href="/pricing">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -287,6 +283,3 @@ export default function JapanPage() {
     </>
   );
 }
-
-// Import ArrowRight
-import { ArrowRight } from "lucide-react";

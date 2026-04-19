@@ -4,28 +4,50 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Globe,
-  Menu,
-  X,
-  ChevronDown,
-} from "lucide-react";
+import { Globe, Menu, X, ChevronRight } from "lucide-react";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/features", label: "Features" },
-  { href: "/japan", label: "Japan Hub" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/how-it-works", label: "How It Works" },
-  { href: "/testimonials", label: "Testimonials" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-  { href: "/story", label: "Our Story" },
+const navItems = [
+  {
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Features",
+    href: "/features",
+    dropdown: [
+      { label: "All Features", href: "/features" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "How It Works", href: "/how-it-works" },
+    ],
+  },
+  {
+    label: "Japan Hub",
+    href: "/japan",
+    dropdown: [
+      { label: "ESG Guide", href: "/japan" },
+      { label: "履歴書 Templates", href: "/japan" },
+      { label: "SPI Practice", href: "/japan" },
+      { label: "Keigo Guide", href: "/japan" },
+    ],
+  },
+  {
+    label: "Pricing",
+    href: "/pricing",
+  },
+  {
+    label: "FAQ",
+    href: "/faq",
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+  },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -45,51 +67,68 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 text-xl font-display font-bold">
+        <Link href="/" className="flex items-center gap-3 text-xl font-display font-bold">
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
             <Globe className="w-5 h-5 text-white" />
           </div>
-          <div className="flex flex-col items-start">
-            <span className="text-gradient hidden sm:block">MyTegami</span>
-            <div className="flex items-center gap-1 text-xs">
-              <span className="text-primary/80">From</span>
-              <span className="text-accent font-medium">Nagayoshi Lab</span>
-              <span className="text-primary/80 mx-1">•</span>
-              <span className="text-primary/80">Shizuoka Univ</span>
-            </div>
-          </div>
+          <span className="text-gradient">MyTegami</span>
+          <span className="hidden sm:block px-2 py-0.5 text-[10px] font-medium bg-accent/20 text-accent rounded-full">
+            Nagayoshi Lab
+          </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm transition-colors ${
-                isActive(link.href)
-                  ? "text-white font-medium"
-                  : "text-text-secondary hover:text-white"
-              }`}
+        <div className="hidden lg:flex items-center gap-2">
+          {navItems.map((item) => (
+            <div
+              key={item.label}
+              className="relative"
+              onMouseEnter={() => item.dropdown && setOpenDropdown(item.label)}
+              onMouseLeave={() => setOpenDropdown(null)}
             >
-              {link.label}
-            </Link>
+              <Link
+                href={item.href}
+                className={`flex items-center gap-1 px-3 py-2 text-sm transition-colors ${
+                  isActive(item.href)
+                    ? "text-white font-medium"
+                    : "text-text-secondary hover:text-white"
+                }`}
+              >
+                {item.label}
+                {item.dropdown && <ChevronRight className="w-3 h-3 rotate-90" />}
+              </Link>
+
+              <AnimatePresence>
+                {item.dropdown && openDropdown === item.label && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-0 mt-2 w-48 py-2 glass-premium rounded-xl shadow-lg"
+                  >
+                    {item.dropdown.map((drop) => (
+                      <Link
+                        key={drop.label}
+                        href={drop.href}
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-white hover:bg-white/5"
+                      >
+                        <ChevronRight className="w-3 h-3" />
+                        {drop.label}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="/"
-            className="text-text-secondary hover:text-white transition-colors text-sm"
-          >
-            Log in
-          </Link>
+        <div className="hidden lg:flex items-center gap-4">
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="relative group"
           >
             <Link
-              href="/#"
+              href="/pricing"
               className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-primary to-secondary text-white text-sm font-medium"
             >
               Start Free
@@ -98,7 +137,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="md:hidden text-white p-2"
+          className="lg:hidden text-white p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -112,31 +151,36 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl z-40 md:hidden"
+            className="fixed inset-0 top-[60px] bg-background/95 backdrop-blur-xl z-40 lg:hidden"
           >
-            <div className="p-6 space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`block py-3 text-lg border-b border-border ${
-                    isActive(link.href) ? "text-white" : "text-text-secondary"
-                  }`}
-                >
-                  {link.label}
-                </Link>
+            <div className="p-6 space-y-2">
+              {navItems.map((item) => (
+                <div key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block py-3 text-lg border-b border-border ${
+                      isActive(item.href) ? "text-white" : "text-text-secondary"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                  {item.dropdown?.map((drop) => (
+                    <Link
+                      key={drop.label}
+                      href={drop.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="block py-2 pl-6 text-base text-text-secondary border-b border-border/50"
+                    >
+                      {drop.label}
+                    </Link>
+                  ))}
+                </div>
               ))}
-              <div className="pt-4 space-y-3">
-                <Link
-                  href="/"
-                  className="block py-3 text-lg text-text-secondary"
-                >
-                  Log in
-                </Link>
+              <div className="pt-4">
                 <motion.div whileTap={{ scale: 0.98 }}>
                   <Link
-                    href="/#"
+                    href="/pricing"
                     className="block w-full py-4 text-center rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold"
                   >
                     Start Free

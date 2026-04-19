@@ -5,11 +5,6 @@ import Link from "next/link";
 import {
   Globe,
   Sparkles,
-  Shield,
-  FileText,
-  MessageSquare,
-  User,
-  DollarSign,
   Check,
   Star,
   ArrowRight,
@@ -39,7 +34,7 @@ export default function StoryPage() {
             Now empowering 50,000+ job seekers worldwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#cta">
+            <Link href="/pricing">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -206,7 +201,7 @@ export default function StoryPage() {
             Join students and professionals who've landed jobs at top companies worldwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#cta">
+            <Link href="/pricing">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -248,5 +243,3 @@ export default function StoryPage() {
     </>
   );
 }
-
-// Import ArrowRight from lucide (we forgot earlier, but it's used above)

@@ -154,10 +154,10 @@ function Hero() {
             transition={{ delay: 0.5 }}
             className="mt-8 text-center"
           >
-            <p className="text-sm text-text-secondary italic">
+            <Link href="/story" className="text-sm text-text-secondary italic hover:text-primary transition-colors">
               Built in <span className="text-accent font-medium">Nagayoshi Lab</span>, 
               <span className="text-primary/80">Shizuoka University</span>
-            </p>
+            </Link>
           </motion.div>
 
           <motion.div
