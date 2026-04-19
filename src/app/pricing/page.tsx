@@ -108,10 +108,10 @@ export default function PricingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
-              className={`relative ${plan.popular ? "md:-mt-4 md:mb-4" : ""}`}
+              className="relative"
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-1.5 bg-gradient-to-r from-primary via-secondary to-accent rounded-full text-sm font-semibold text-white shadow-glow">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-6 py-1.5 bg-gradient-to-r from-primary via-secondary to-accent rounded-full text-sm font-semibold text-white shadow-glow z-10">
                   ★ Most Popular
                 </div>
               )}
@@ -120,7 +120,7 @@ export default function PricingPage() {
                   {plan.savings}
                 </div>
               )}
-              <div className={`h-full glass-premium rounded-2xl p-8 ${plan.popular ? "shadow-glow-lg border border-primary/30" : ""}`}>
+              <div className={`glass-premium rounded-2xl p-8 ${plan.popular ? "shadow-glow-lg border border-primary/30 mt-3" : ""}`}>
                 <h3 className="text-2xl font-display font-bold mb-2">{plan.name}</h3>
                 <div className="flex items-baseline gap-1 mb-2">
                   <span className={`text-5xl font-display font-bold ${plan.popular ? "text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent" : "text-white"}`}>
