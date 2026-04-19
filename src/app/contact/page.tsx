@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Check } from "lucide-react";
+import ContactBooking from "@/components/ContactBooking";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -10,15 +11,68 @@ export default function ContactPage() {
     email: "",
     message: "",
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    message: false,
+  });
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validateField = (field: string, value: string) => {
+    switch (field) {
+      case "name":
+        return value.trim().length < 2 ? "Name must be at least 2 characters" : "";
+      case "email":
+        return !value ? "Email is required" : !validateEmail(value) ? "Please enter a valid email" : "";
+      case "message":
+        return value.trim().length < 10 ? "Message must be at least 10 characters" : "";
+      default:
+        return "";
+    }
+  };
+
+  const handleBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    const error = validateField(field, formData[field as keyof typeof formData]);
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (touched[field as keyof typeof touched]) {
+      const error = validateField(field, value);
+      setErrors((prev) => ({ ...prev, [field]: error }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const newErrors = {
+      name: validateField("name", formData.name),
+      email: validateField("email", formData.email),
+      message: validateField("message", formData.message),
+    };
+    setErrors(newErrors);
+    setTouched({ name: true, email: true, message: true });
+
+    if (Object.values(newErrors).some((error) => error)) return;
+
     setStatus("loading");
     await new Promise((resolve) => setTimeout(resolve, 1500));
     console.log("Contact form:", formData);
     setStatus("success");
     setFormData({ name: "", email: "", message: "" });
+    setTouched({ name: false, email: false, message: false });
     setTimeout(() => setStatus("idle"), 3000);
   };
 
@@ -115,6 +169,7 @@ export default function ContactPage() {
                 We typically respond within <span className="text-green-400 font-medium">24 hours</span> on business days.
               </p>
             </div>
+            <ContactBooking />
           </div>
 
           {/* Contact Form */}
@@ -127,15 +182,20 @@ export default function ContactPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <label className="text-sm text-text-secondary">Name</label>
+                <label className="text-sm text-text-secondary">Name *</label>
                 <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  onBlur={() => handleBlur("name")}
                   placeholder="Your name"
-                  className="w-full mt-1 px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-primary"
-                  required
+                  className={`w-full mt-1 px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none ${
+                    errors.name && touched.name ? "border-red-500 focus:border-red-500" : "focus:border-primary"
+                  }`}
                 />
+                {errors.name && touched.name && (
+                  <p className="mt-1 text-sm text-red-400">{errors.name}</p>
+                )}
               </motion.div>
 
               <motion.div
@@ -144,15 +204,20 @@ export default function ContactPage() {
                 transition={{ delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                <label className="text-sm text-text-secondary">Email</label>
+                <label className="text-sm text-text-secondary">Email *</label>
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) => handleChange("email", e.target.value)}
+                  onBlur={() => handleBlur("email")}
                   placeholder="your@email.com"
-                  className="w-full mt-1 px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-primary"
-                  required
+                  className={`w-full mt-1 px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none ${
+                    errors.email && touched.email ? "border-red-500 focus:border-red-500" : "focus:border-primary"
+                  }`}
                 />
+                {errors.email && touched.email && (
+                  <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                )}
               </motion.div>
 
               <motion.div
@@ -161,15 +226,21 @@ export default function ContactPage() {
                 transition={{ delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <label className="text-sm text-text-secondary">Message</label>
+                <label className="text-sm text-text-secondary">Message *</label>
                 <textarea
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) => handleChange("message", e.target.value)}
+                  onBlur={() => handleBlur("message")}
                   placeholder="How can we help you?"
                   rows={5}
-                  className="w-full mt-1 px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-primary resize-none"
+                  className={`w-full mt-1 px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none resize-none ${
+                    errors.message && touched.message ? "border-red-500 focus:border-red-500" : "focus:border-primary"
+                  }`}
                   required
                 />
+                {errors.message && touched.message && (
+                  <p className="mt-1 text-sm text-red-400">{errors.message}</p>
+                )}
               </motion.div>
 
               <motion.button

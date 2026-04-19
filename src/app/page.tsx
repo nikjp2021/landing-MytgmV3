@@ -15,6 +15,8 @@ import {
   DollarSign,
   ChevronRight,
 } from "lucide-react";
+import TrustBadges from "@/components/TrustBadges";
+import LiveCounter from "@/components/LiveCounter";
 
 function Hero() {
   const features = [
@@ -144,6 +146,15 @@ function Hero() {
               <span>15+ languages</span>
             </div>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8"
+          >
+            <TrustBadges />
+          </motion.div>
         </div>
 
         {/* Features */}
@@ -247,6 +258,9 @@ function HomeCTA() {
         <div className="flex items-center justify-center gap-4 mt-6 text-sm text-text-secondary">
           <Shield className="w-4 h-4" />
           <span>Secure & Private • 30-day guarantee</span>
+        </div>
+        <div className="flex items-center justify-center gap-4 mt-4">
+          <LiveCounter />
         </div>
       </div>
     </section>

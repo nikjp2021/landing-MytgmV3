@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ExitPopup from "@/components/ExitPopup";
 import "./globals.css";
 
 const inter = Inter({
@@ -125,6 +126,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ExitPopup />
       </body>
     </html>
   );

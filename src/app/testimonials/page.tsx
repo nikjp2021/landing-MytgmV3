@@ -1,9 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Star, Globe, FileText, Languages, MapPin } from "lucide-react";
+import { Star, Globe, FileText, Languages, MapPin, Filter } from "lucide-react";
+import VideoTestimonial from "@/components/VideoTestimonial";
+
+type FilterType = "all" | "student" | "developer" | "manager" | "designer";
 
 export default function TestimonialsPage() {
+  const [filter, setFilter] = useState<FilterType>("all");
+
   const testimonials = [
     {
       name: "Emily Chen",
@@ -12,6 +18,7 @@ export default function TestimonialsPage() {
       avatar: "EC",
       quote: "I landed my dream internship at a top Japanese company. MyTegami made my cover letter sound authentically native. The Japanese Career Suite was a game-changer!",
       result: "Dream internship secured",
+      category: "student" as FilterType,
     },
     {
       name: "Carlos Silva",
@@ -20,6 +27,7 @@ export default function TestimonialsPage() {
       avatar: "CS",
       quote: "Applied to jobs in Berlin and got 3 interviews in the first week. The German version was flawless. Worth every penny.",
       result: "3 interviews in Week 1",
+      category: "developer" as FilterType,
     },
     {
       name: "Aisha Patel",
@@ -28,6 +36,7 @@ export default function TestimonialsPage() {
       avatar: "AP",
       quote: "As a non-native English speaker, I always struggled with cover letters. This tool changed everything. My confidence soared.",
       result: "First UK job landed",
+      category: "manager" as FilterType,
     },
     {
       name: "Kenji Yamamoto",
@@ -36,6 +45,7 @@ export default function TestimonialsPage() {
       avatar: "KY",
       quote: "The Resume Optimizer helped me pass ATS systems I was rejected by before. Got 2 offers in my first month.",
       result: "2 job offers received",
+      category: "designer" as FilterType,
     },
     {
       name: "Fatima Al-Hassan",
@@ -44,6 +54,7 @@ export default function TestimonialsPage() {
       avatar: "FA",
       quote: "Moving from Dubai to Amsterdam seemed impossible until I used MyTegami. My applications finally felt authentic.",
       result: "Relocated to Amsterdam",
+      category: "manager" as FilterType,
     },
     {
       name: "Marco Rossi",
@@ -52,7 +63,20 @@ export default function TestimonialsPage() {
       avatar: "MR",
       quote: "The multilingual support is incredible. Got responses in English, German, and even Mandarin. Highly recommend!",
       result: "Multiple offers received",
+      category: "manager" as FilterType,
     },
+  ];
+
+  const filteredTestimonials = filter === "all"
+    ? testimonials
+    : testimonials.filter((t) => t.category === filter);
+
+  const filters: { value: FilterType; label: string }[] = [
+    { value: "all", label: "All Stories" },
+    { value: "student", label: "Students" },
+    { value: "developer", label: "Developers" },
+    { value: "manager", label: "Managers" },
+    { value: "designer", label: "Designers" },
   ];
 
   const stats = [
@@ -96,9 +120,54 @@ export default function TestimonialsPage() {
           ))}
         </div>
 
+        {/* Filters */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+          <Filter className="w-5 h-5 text-text-secondary mr-2" />
+          {filters.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => setFilter(f.value)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                filter === f.value
+                  ? "bg-gradient-to-r from-primary to-secondary text-white"
+                  : "glass text-text-secondary hover:text-white"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Video Testimonials Placeholder */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-display font-bold text-center mb-8">
+            Watch Success Stories
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <VideoTestimonial
+              name="Emily Chen"
+              role="Marketing Intern"
+              location="Tokyo, Japan"
+              quote="I landed my dream internship at a top Japanese company..."
+            />
+            <VideoTestimonial
+              name="Carlos Silva"
+              role="Software Developer"
+              location="São Paulo → Berlin"
+              quote="Applied to jobs in Berlin and got 3 interviews..."
+            />
+          </div>
+          <p className="mt-4 text-center text-sm text-text-secondary">
+            [PLACEHOLDER: More video testimonials to be added]
+          </p>
+        </div>
+
         {/* Testimonials Grid */}
+        <h2 className="text-2xl font-display font-bold text-center mb-8">
+          Written Success Stories
+        </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {testimonials.map((testimonial, i) => (
+          {filteredTestimonials.map((testimonial, i) => (
             <motion.div
               key={testimonial.name}
               initial={{ opacity: 0, y: 30 }}

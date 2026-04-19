@@ -1,9 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, X, Sparkles } from "lucide-react";
+import PricingToggle from "@/components/PricingToggle";
+import ComparisonTable from "@/components/ComparisonTable";
 
 export default function PricingPage() {
+  const [isAnnual, setIsAnnual] = useState(true);
+
   const plans = [
     {
       name: "Starter",
@@ -26,37 +31,29 @@ export default function PricingPage() {
       popular: false,
     },
     {
-      name: "Pro Monthly",
-      price: "$9.99",
-      per: "/month",
-      description: "For serious job seekers",
-      features: [
-        "Unlimited message generations",
-        "Resume Optimizer module",
-        "Japan Career Suite",
-        "All future premium features",
-        "Priority support",
-        "No credit card required to start",
-      ],
+      name: isAnnual ? "Pro Yearly" : "Pro Monthly",
+      price: isAnnual ? "$89.99" : "$9.99",
+      per: isAnnual ? "/year" : "/month",
+      savings: isAnnual ? "Save 25%" : null,
+      description: isAnnual ? "Best value for long-term" : "For serious job seekers",
+      features: isAnnual
+        ? [
+            "Everything in Pro Monthly",
+            "25% discount (~$7.50/month)",
+            "Early access to new features",
+            "Exclusive yearly member benefits",
+          ]
+        : [
+            "Unlimited message generations",
+            "Resume Optimizer module",
+            "Japan Career Suite",
+            "All future premium features",
+            "Priority support",
+            "No credit card required to start",
+          ],
       missing: [],
-      cta: "Start Pro",
+      cta: isAnnual ? "Start Yearly" : "Start Pro",
       popular: true,
-    },
-    {
-      name: "Pro Yearly",
-      price: "$89.99",
-      per: "/year",
-      savings: "Save 25%",
-      description: "Best value for long-term",
-      features: [
-        "Everything in Pro Monthly",
-        "25% discount",
-        "Early access to new features",
-        "Exclusive yearly member benefits",
-      ],
-      missing: [],
-      cta: "Start Yearly",
-      popular: false,
     },
   ];
 
@@ -97,6 +94,9 @@ export default function PricingPage() {
           <p className="text-xl text-text-secondary">
             Choose the plan that fits your ambition
           </p>
+          <div className="mt-8">
+            <PricingToggle onChange={setIsAnnual} />
+          </div>
         </motion.div>
 
         {/* Subscription Plans */}
@@ -202,6 +202,19 @@ export default function PricingPage() {
                 </motion.button>
               </motion.div>
             ))}
+          </div>
+        </div>
+
+        {/* Comparison Table */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-display font-bold text-center mb-4">
+            Why MyTegami Wins
+          </h2>
+          <p className="text-text-secondary text-center mb-8">
+            See how we compare to the competition
+          </p>
+          <div className="glass-premium rounded-2xl p-6 overflow-hidden">
+            <ComparisonTable />
           </div>
         </div>
 
