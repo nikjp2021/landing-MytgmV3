@@ -8,17 +8,12 @@ import {
   Sparkles,
   Check,
   ArrowRight,
-  Star,
   Shield,
-  Languages,
   FileText,
   MessageSquare,
   User,
   DollarSign,
   ChevronRight,
-  Mail,
-  Send,
-  Zap,
 } from "lucide-react";
 
 function Hero() {
@@ -30,22 +25,22 @@ function Hero() {
       gradient: "from-blue-500 to-cyan-500",
     },
     {
-      icon: Zap,
-      title: "In 60 Seconds",
-      description: "Just 2 phrases and you're ready to apply to your dream job.",
+      icon: Sparkles,
+      title: "Human-Written",
+      description: "Passes every AI detector. Sounds authentically human.",
       gradient: "from-purple-500 to-pink-500",
     },
     {
       icon: Shield,
-      title: "Human-Written",
-      description: "Passes every AI detector. Sounds authentically human.",
+      title: "Secure & Private",
+      description: "256-bit encryption. GDPR compliant. Your data is safe.",
       gradient: "from-green-500 to-emerald-500",
     },
   ];
 
   const services = [
     { icon: FileText, title: "Cover Letters", gradient: "from-primary to-secondary" },
-    { icon: MessageSquare, title: "LinkedIn Messages", gradient: "from-blue-500 to-cyan-500" },
+    { icon: MessageSquare, title: "LinkedIn", gradient: "from-blue-500 to-cyan-500" },
     { icon: User, title: "Personal Bios", gradient: "from-purple-500 to-pink-500" },
     { icon: DollarSign, title: "Sales Emails", gradient: "from-green-500 to-emerald-500" },
   ];
@@ -68,6 +63,7 @@ function Hero() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        {/* Hero Content */}
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -213,20 +209,7 @@ function Hero() {
   );
 }
 
-function NewsletterSignup() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("loading");
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Newsletter signup:", email);
-    setStatus("success");
-    setEmail("");
-    setTimeout(() => setStatus("idle"), 3000);
-  };
-
+function HomeCTA() {
   return (
     <section id="cta" className="py-24 relative overflow-hidden">
       <div className="absolute inset-0">
@@ -239,27 +222,31 @@ function NewsletterSignup() {
         <p className="text-text-secondary mb-8">
           Join 50,000+ professionals who've transformed their job search.
         </p>
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="flex-1 px-4 py-3 rounded-xl glass text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-primary/50"
-            required
-          />
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            disabled={status === "loading" || status === "success"}
-            className="px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-primary to-secondary text-white flex items-center gap-2"
-          >
-            {status === "loading" ? "Subscribing..." : status === "success" ? "Subscribed!" : "Subscribe"}
-          </motion.button>
-        </form>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link href="/#">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-lg"
+            >
+              Start Free Now
+            </motion.button>
+          </Link>
+          <Link href="/pricing">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-8 py-4 rounded-xl glass-premium text-white font-semibold text-lg"
+            >
+              View Pricing
+            </motion.button>
+          </Link>
+        </div>
+
         <div className="flex items-center justify-center gap-4 mt-6 text-sm text-text-secondary">
           <Shield className="w-4 h-4" />
-          <span>Secure & Private</span>
+          <span>Secure & Private • 30-day guarantee</span>
         </div>
       </div>
     </section>
@@ -270,7 +257,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <NewsletterSignup />
+      <HomeCTA />
     </>
   );
 }
